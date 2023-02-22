@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Beer - Today's Menu</title>
+    <!-- connect to domain of font files -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- optionally increase loading priority -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&amp;family=Poppins:wght@500;600&amp;display=fallback">
+    <!-- async CSS -->
+    <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&amp;family=Poppins:wght@500;600&amp;display=fallback">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.2/randomColor.js" defer=""></script>
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  </head>
+  <body class="">
+    <header>
+      
+      <img class="logo" src="https://lolev.beer/images/logo.svg"/>
+    
+    </header>
+    <section data-addr="" v-cloak id="app">
+      <article class="items" :data-tap="item.tap" v-if="item.cans || item.tap" v-for="item in items">
+        <span class="beer-name">
+          
+          <a :href="'https://lolev.beer/beer/' + item.name.toLowerCase().trim()">
+            ${ item.name }
+          </a>
+          <img v-if="item.glutenFree" class="gf" src="./assets/gluten-free.svg"></img>
+        </span>
+        <span v-if="item.abv" class="percent">${ item.abv }</span>
+        <span v-if="item.type" class="beer-style">${ item.type }</span>
+        <div class="options" v-if="item.options">
+          <span class="option" v-for="option in item.options">
+            ${ option }
+          </span>
+        </div>
+        <span class="beer-info">
+          
+            <span v-if="item.cans" class="beer-can">
+              <img :src="'/assets/images/can.svg'" />
+              ${ item.cans }
+            </span>
+            <span v-if="item.draftPrice && item.tap" class="beer-glass">
+              <img :src="'/assets/images/' + item.glass + '.svg'" />
+              <span v-if="item.draftPrice" class="price">
+                ${ item.draftPrice }
+              </span>
+            </span>
+            <span v-else class="price-none">
+            </span>
+          
+        </span>
+      </article>
+    </section>
+  </body>
+  
+    <script src="/assets/js/render-beer.js" defer=""></script>
+  
+</html>
